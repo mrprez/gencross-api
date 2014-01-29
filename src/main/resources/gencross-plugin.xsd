@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:simpleType name="boolean">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="true" />
+			<xs:enumeration value="false" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="ValueClass">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="com.mrprez.gencross.value.StringValue" />
+			<xs:enumeration value="com.mrprez.gencross.value.IntValue" />
+			<xs:enumeration value="com.mrprez.gencross.value.DoubleValue" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="phase">
+		<xs:attribute name="name" type="xs:string" use="required"/>
+	</xs:complexType>
+	
+	<xs:complexType name="properties">
+		<xs:sequence>
+			<xs:element name="property" type="property" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="listenerList">
+		<xs:sequence>
+			<xs:element name="listener" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="pattern" type="xs:string"/>
+						<xs:element name="arg" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="xs:string">
+										<xs:attribute name="name" type="xs:string" use="required"/>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="class" type="xs:string" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="phaseListenerList">
+		<xs:sequence>
+			<xs:element name="listener" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="phase" type="xs:string"/>
+						<xs:element name="arg" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="xs:string">
+										<xs:attribute name="name" type="xs:string" use="required"/>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="class" type="xs:string" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="property">
+		<xs:all>
+			<xs:element name="Value" type="Value" minOccurs="0"/>
+			<xs:element name="min" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Value" type="Value"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="max" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Value" type="Value"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="valueChoice" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Value" type="Value" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="renderer" minOccurs="0">
+				<xs:complexType>
+					<xs:attribute name="class" type="xs:string" use="required"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="historyFactory" type="historyFactory" minOccurs="0"/>
+			<xs:element name="propertiesList" type="propertiesList" minOccurs="0"/>
+			<xs:element name="comment" type="xs:string" minOccurs="0"/>
+		</xs:all>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="editable" type="boolean" use="required"/>
+		<xs:attribute name="canBeRemoved" type="xs:boolean"/>
+	</xs:complexType>
+	
+	<xs:complexType name="Value">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="class" type="ValueClass" use="required"/>
+				<xs:attribute name="offset" type="xs:string"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:complexType name="propertiesList">
+		<xs:all>
+			<xs:element name="defaultProperty" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="property" type="property"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="propertyChoice" minOccurs="0"/>
+			<xs:element name="properties" type="properties"/>
+		</xs:all>
+		<xs:attribute name="fixe" type="boolean" use="required"/>
+		<xs:attribute name="open" type="boolean" use="required"/>
+		<xs:attribute name="canRemoveElement" type="boolean"/>
+	</xs:complexType>
+	
+	<xs:complexType name="historyFactory">
+		<xs:sequence>
+			<xs:element name="pointPool" type="xs:string"/>
+			<xs:element name="args">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="arg" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="xs:string">
+										<xs:attribute name="key" type="xs:string" use="required"/>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="class" type="xs:string" use="required"/>
+	</xs:complexType>
+	
+	<xs:complexType name="historyItem">
+		<xs:sequence>
+			<xs:element name="absoluteName" type="xs:string"/>
+			<xs:element name="oldValue" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Value" type="Value"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="newValue" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Value" type="Value"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="date" type="xs:long"/>
+			<xs:element name="phase" type="xs:string"/>
+			<xs:element name="pointPool" type="xs:string"/>
+			<xs:element name="cost" type="xs:integer"/>
+		</xs:sequence>
+		<xs:attribute name="action" type="xs:integer" use="required"/>
+	</xs:complexType>
+	
+
+	<xs:element name="personnage">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="phase" type="phase"/>
+				<xs:element name="phaseList">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="phase" type="phase" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="pointPools">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="pool" maxOccurs="unbounded" minOccurs="0">
+								<xs:complexType>
+									<xs:attribute name="name" type="xs:string" use="required"/>
+									<xs:attribute name="remaining" type="xs:integer" use="required"/>
+									<xs:attribute name="total" type="xs:integer" use="required"/>
+									<xs:attribute name="toEmpty" type="boolean" use="optional"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="properties" type="properties"/>
+				<xs:element name="beforeChangeValueListeners" type="listenerList"/>
+				<xs:element name="afterChangeValueListeners" type="listenerList"/>
+				<xs:element name="beforeAddPropertyListeners" type="listenerList"/>
+				<xs:element name="afterAddPropertyListeners" type="listenerList"/>
+				<xs:element name="beforeDeletePropertyListeners" type="listenerList"/>
+				<xs:element name="afterDeletePropertyListeners" type="listenerList"/>
+				<xs:element name="passToNextPhaseListeners" type="phaseListenerList"/>
+				<xs:element name="formulas">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="formula" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="history">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="historyItem" type="historyItem" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="version" type="xs:string" use="required"/>
+			<xs:attribute name="gencrossVersion" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>
