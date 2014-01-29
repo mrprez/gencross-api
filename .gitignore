@@ -2,3 +2,4 @@
 repository/*
 .settings/
 target/
+.classpath
