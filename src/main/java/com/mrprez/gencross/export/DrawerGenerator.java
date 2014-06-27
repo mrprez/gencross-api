@@ -89,6 +89,12 @@ public class DrawerGenerator extends TemplatedFileGenerator {
 				htmlToText.parse(text);
 				text = htmlToText.getString();
 			}
+			if(element.attribute("substring")!=null){
+				int substring = Integer.parseInt(element.attributeValue("substring"));
+				if(substring<text.length()){
+					text = text.substring(0, substring);
+				}
+			}
 			graphics.drawString(text, x, y);
 		}
 		graphics.dispose();
