@@ -69,12 +69,22 @@ public class DrawerGenerator extends TemplatedFileGenerator {
 		Iterator<?> it = document.getRootElement().elementIterator();
 		while(it.hasNext()){
 			Element element = (Element)it.next();
+			String text = getText(element.getText(), personnage);
+			if(text.startsWith("<html>")){
+				HtmlToText htmlToText = new HtmlToText();
+				htmlToText.parse(text);
+				text = htmlToText.getString();
+			}
 			int x = Integer.parseInt(element.attributeValue("x"));
 			int y = Integer.parseInt(element.attributeValue("y"));
 			float fontSize = Float.parseFloat(element.attributeValue("fontSize"));
 			String fontName = element.attributeValue("fontName");
 			int fontStyle = Integer.parseInt(element.attributeValue("fontStyle"));
 			Font font  = fonts.get(fontName);
+			if(font.canDisplayUpTo(text)<text.length()-1){
+				font = Font.getFont(Font.DIALOG);
+			}
+			font = graphics.getFont();
 			font = font.deriveFont(fontSize);
 			font = font.deriveFont(fontStyle);
 			double angle = element.attributeValue("angle")!=null?Double.parseDouble(element.attributeValue("angle")):0.0;
@@ -83,12 +93,7 @@ public class DrawerGenerator extends TemplatedFileGenerator {
 			font = font.deriveFont(affineTransform);
 			graphics.setFont(font);
 			graphics.setColor(buildColor(element.attributeValue("color")));
-			String text = getText(element.getText(), personnage);
-			if(text.startsWith("<html>")){
-				HtmlToText htmlToText = new HtmlToText();
-				htmlToText.parse(text);
-				text = htmlToText.getString();
-			}
+			
 			if(element.attribute("substring")!=null){
 				int substring = Integer.parseInt(element.attributeValue("substring"));
 				if(substring<text.length()){
