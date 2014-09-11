@@ -45,14 +45,11 @@ public class DrawerGenerator extends TemplatedFileGenerator {
 				ZipEntry entry;
 				while((entry = zis.getNextEntry()) != null){
 					String entryName = entry.getName();
-					System.out.println("entryName="+entryName);
-					System.out.println("extension="+entryName.substring(entryName.length()-entryName.lastIndexOf(".")));
 					if(entryName.equals(XML_NAME)){
 						document = loadXml(zis);
 					}else if(entryName.equals(BACKGROUND_IMAGE_NAME)){
 						image = ImageIO.read(zis);
 					}else if(entryName.substring(entryName.lastIndexOf(".")).equalsIgnoreCase(".ttf")){
-						System.out.println(entryName+" is font");
 						Font font = Font.createFont(Font.TRUETYPE_FONT, zis);
 						fonts.put(font.getFontName(), font);
 					}
@@ -83,11 +80,14 @@ public class DrawerGenerator extends TemplatedFileGenerator {
 			int y = Integer.parseInt(element.attributeValue("y"));
 			float fontSize = Float.parseFloat(element.attributeValue("fontSize"));
 			String fontName = element.attributeValue("fontName");
+			System.out.println("fontName="+fontName);
 			int fontStyle = Integer.parseInt(element.attributeValue("fontStyle"));
 			Font font  = fonts.get(fontName);
 			if(font==null || font.canDisplayUpTo(text)<text.length()-1){
+				System.out.println("Font not available");
 				font = graphics.getFont();
 			}
+			System.out.println("Font="+font.getFontName());
 			font = font.deriveFont(fontSize);
 			font = font.deriveFont(fontStyle);
 			double angle = element.attributeValue("angle")!=null?Double.parseDouble(element.attributeValue("angle")):0.0;
