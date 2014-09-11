@@ -44,11 +44,12 @@ public class DrawerGenerator extends TemplatedFileGenerator {
 			try{
 				ZipEntry entry;
 				while((entry = zis.getNextEntry()) != null){
-					if(entry.getName().equals(XML_NAME)){
+					String entryName = entry.getName();
+					if(entryName.equals(XML_NAME)){
 						document = loadXml(zis);
-					}else if(entry.getName().equals(BACKGROUND_IMAGE_NAME)){
+					}else if(entryName.equals(BACKGROUND_IMAGE_NAME)){
 						image = ImageIO.read(zis);
-					}else if(s.substring(s.length()-s.lastIndexOf(".")).equalsIgnoreCase("ttf")){
+					}else if(entryName.substring(entryName.length()-entryName.lastIndexOf(".")).equalsIgnoreCase("ttf")){
 						Font font = Font.createFont(Font.TRUETYPE_FONT, zis);
 						fonts.put(font.getFontName(), font);
 					}
