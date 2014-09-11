@@ -70,6 +70,7 @@ public class DrawerGenerator extends TemplatedFileGenerator {
 		while(it.hasNext()){
 			Element element = (Element)it.next();
 			String text = getText(element.getText(), personnage);
+			System.out.println("text="+text);
 			if(text.startsWith("<html>")){
 				HtmlToText htmlToText = new HtmlToText();
 				htmlToText.parse(text);
@@ -79,10 +80,14 @@ public class DrawerGenerator extends TemplatedFileGenerator {
 			int y = Integer.parseInt(element.attributeValue("y"));
 			float fontSize = Float.parseFloat(element.attributeValue("fontSize"));
 			String fontName = element.attributeValue("fontName");
+			System.out.println("fontName="+fontName);
 			int fontStyle = Integer.parseInt(element.attributeValue("fontStyle"));
 			Font font  = fonts.get(fontName);
+			System.out.println("font="+font.getFontName());
 			if(font==null || font.canDisplayUpTo(text)<text.length()-1){
+				System.out.println("Font not valid for text");
 				font = graphics.getFont();
+				System.out.println("font="+font.getFontName());
 			}
 			font = font.deriveFont(fontSize);
 			font = font.deriveFont(fontStyle);
