@@ -45,11 +45,14 @@ public class DrawerGenerator extends TemplatedFileGenerator {
 				ZipEntry entry;
 				while((entry = zis.getNextEntry()) != null){
 					String entryName = entry.getName();
+					System.out.println("entryName="+entryName);
+					System.out.println("extension="+entryName.substring(entryName.length()-entryName.lastIndexOf(".")));
 					if(entryName.equals(XML_NAME)){
 						document = loadXml(zis);
 					}else if(entryName.equals(BACKGROUND_IMAGE_NAME)){
 						image = ImageIO.read(zis);
 					}else if(entryName.substring(entryName.length()-entryName.lastIndexOf(".")).equalsIgnoreCase("ttf")){
+						System.out.println(entryName+" is font");
 						Font font = Font.createFont(Font.TRUETYPE_FONT, zis);
 						fonts.put(font.getFontName(), font);
 					}
