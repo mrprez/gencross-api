@@ -83,7 +83,7 @@ public class DrawerGenerator extends TemplatedFileGenerator {
 			System.out.println("fontName="+fontName);
 			int fontStyle = Integer.parseInt(element.attributeValue("fontStyle"));
 			Font font  = fonts.get(fontName);
-			System.out.println("font="+font.getFontName());
+			System.out.println("font="+font!=null?font.getFontName():font);
 			if(font==null || font.canDisplayUpTo(text)<text.length()-1){
 				System.out.println("Font not valid for text");
 				font = graphics.getFont();
