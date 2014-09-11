@@ -89,6 +89,13 @@ public class DrawerGenerator extends TemplatedFileGenerator {
 			Font font  = fonts.get(fontName);
 			System.out.println("canDisplayUpTo="+font.canDisplayUpTo(text));
 			System.out.println("text.length="+text.length());
+			for(char c : text.toCharArray()){
+				if(font.canDisplay(c)){
+					System.out.println("canDisplay: "+c);
+				}else{
+					System.out.println("cannotDisplay: "+c);
+				}
+			}
 			if(font==null || font.canDisplayUpTo(text)<text.length()-1){
 				System.out.println(font==null?"Font not found":"Font not available");
 				font = graphics.getFont();
