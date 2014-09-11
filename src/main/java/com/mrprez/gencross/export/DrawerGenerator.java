@@ -49,7 +49,9 @@ public class DrawerGenerator extends TemplatedFileGenerator {
 					}else if(entry.getName().equals(BACKGROUND_IMAGE_NAME)){
 						image = ImageIO.read(zis);
 					}else if(entry.getName().endsWith(".ttf")){
+						System.out.println("Load ttf file "+entry.getName());
 						Font font = Font.createFont(Font.TRUETYPE_FONT, zis);
+						System.out.println("Font "+font.getFontName()+" loaded");
 						fonts.put(font.getFontName(), font);
 					}
 				}
@@ -81,9 +83,10 @@ public class DrawerGenerator extends TemplatedFileGenerator {
 			float fontSize = Float.parseFloat(element.attributeValue("fontSize"));
 			String fontName = element.attributeValue("fontName");
 			System.out.println("fontName="+fontName);
+			System.out.println("fontStyle="+element.attributeValue("fontStyle"));
 			int fontStyle = Integer.parseInt(element.attributeValue("fontStyle"));
 			Font font  = fonts.get(fontName);
-			System.out.println("font="+font!=null?font.getFontName():font);
+			System.out.println("font="+(font!=null?font.getFontName():font));
 			if(font==null || font.canDisplayUpTo(text)<text.length()-1){
 				System.out.println("Font not valid for text");
 				font = graphics.getFont();
