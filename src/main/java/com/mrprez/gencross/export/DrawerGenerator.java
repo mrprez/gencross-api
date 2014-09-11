@@ -50,9 +50,7 @@ public class DrawerGenerator extends TemplatedFileGenerator {
 					}else if(entryName.equals(BACKGROUND_IMAGE_NAME)){
 						image = ImageIO.read(zis);
 					}else if(entryName.substring(entryName.lastIndexOf(".")).equalsIgnoreCase(".ttf")){
-						System.out.println("Load font file: "+entryName);
 						Font font = Font.createFont(Font.TRUETYPE_FONT, zis);
-						System.out.println("Font loaded: "+font.getFontName());
 						fonts.put(font.getFontName(), font);
 					}
 				}
@@ -73,34 +71,20 @@ public class DrawerGenerator extends TemplatedFileGenerator {
 		while(it.hasNext()){
 			Element element = (Element)it.next();
 			String text = getText(element.getText(), personnage);
-			System.out.println("\ntext="+text);
 			if(text.startsWith("<html>")){
 				HtmlToText htmlToText = new HtmlToText();
 				htmlToText.parse(text);
 				text = htmlToText.getString();
-				System.out.println("htmlText="+text);
 			}
 			int x = Integer.parseInt(element.attributeValue("x"));
 			int y = Integer.parseInt(element.attributeValue("y"));
 			float fontSize = Float.parseFloat(element.attributeValue("fontSize"));
 			String fontName = element.attributeValue("fontName");
-			System.out.println("fontName="+fontName);
 			int fontStyle = Integer.parseInt(element.attributeValue("fontStyle"));
 			Font font  = fonts.get(fontName);
-			System.out.println("canDisplayUpTo="+font.canDisplayUpTo(text));
-			System.out.println("text.length="+text.length());
-			for(char c : text.toCharArray()){
-				if(font.canDisplay(c)){
-					System.out.println("canDisplay: "+c);
-				}else{
-					System.out.println("cannotDisplay: "+c);
-				}
-			}
 			if(font==null || font.canDisplayUpTo(text)>=0){
-				System.out.println(font==null?"Font not found":"Font not available");
 				font = graphics.getFont();
 			}
-			System.out.println("Font="+font.getFontName());
 			font = font.deriveFont(fontSize);
 			font = font.deriveFont(fontStyle);
 			double angle = element.attributeValue("angle")!=null?Double.parseDouble(element.attributeValue("angle")):0.0;
