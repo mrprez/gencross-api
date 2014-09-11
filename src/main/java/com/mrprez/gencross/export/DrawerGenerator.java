@@ -81,10 +81,9 @@ public class DrawerGenerator extends TemplatedFileGenerator {
 			String fontName = element.attributeValue("fontName");
 			int fontStyle = Integer.parseInt(element.attributeValue("fontStyle"));
 			Font font  = fonts.get(fontName);
-			if(font.canDisplayUpTo(text)<text.length()-1){
-				font = Font.getFont(Font.DIALOG);
+			if(font==null || font.canDisplayUpTo(text)<text.length()-1){
+				font = graphics.getFont();
 			}
-			font = graphics.getFont();
 			font = font.deriveFont(fontSize);
 			font = font.deriveFont(fontStyle);
 			double angle = element.attributeValue("angle")!=null?Double.parseDouble(element.attributeValue("angle")):0.0;
