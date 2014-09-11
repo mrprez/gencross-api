@@ -96,7 +96,7 @@ public class DrawerGenerator extends TemplatedFileGenerator {
 					System.out.println("cannotDisplay: "+c);
 				}
 			}
-			if(font==null || font.canDisplayUpTo(text)<text.length()-1){
+			if(font==null || font.canDisplayUpTo(text)>=0){
 				System.out.println(font==null?"Font not found":"Font not available");
 				font = graphics.getFont();
 			}
