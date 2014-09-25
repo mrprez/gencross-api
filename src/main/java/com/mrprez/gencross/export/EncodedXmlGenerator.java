@@ -31,7 +31,17 @@ public class EncodedXmlGenerator extends TemplatedFileGenerator {
 
 	@Override
 	public String getOutputExtension() {
-		return null;
+		return "xml";
+	}
+
+	@Override
+	public String getTemplateFileExtension() {
+		return "xml";
+	}
+
+	@Override
+	public String getTemlpateFileExtensionDescription() {
+		return "Extensible Markup Language";
 	}
 	
 	

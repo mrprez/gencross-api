@@ -7,4 +7,14 @@ public class PptxGenerator extends MOXGenerator {
 		return "pptx";
 	}
 
+	@Override
+	public String getTemplateFileExtension() {
+		return "pptx";
+	}
+
+	@Override
+	public String getTemlpateFileExtensionDescription() {
+		return "Power Point";
+	}
+
 }

@@ -17,6 +17,7 @@ import com.mrprez.gencross.Property;
 
 public abstract class TemplatedFileGenerator extends FileGenerator {
 	protected Properties properties = new Properties();
+	private String pluginName;
 	private char openVariableChar = '{';
 	private char closeVariableChar = '}';
 	public static final String CLOSE_VARIABLE_PROPERTY_NAME = "variable.close";
@@ -33,13 +34,9 @@ public abstract class TemplatedFileGenerator extends FileGenerator {
 	
 	public abstract void setTemplate(File template) throws FileNotFoundException, IOException;
 	
-	public String getTemplateFileExtension(){
-		return null;
-	}
+	public abstract String getTemplateFileExtension();
 	
-	public String getTemlpateFileExtensionDescription(){
-		return null;
-	}
+	public abstract String getTemlpateFileExtensionDescription();
 	
 	public void loadProperties(InputStream is) throws IOException{
 		properties.load(is);
@@ -201,6 +198,14 @@ public abstract class TemplatedFileGenerator extends FileGenerator {
 			}
 			return property.getSubProperty(name);
 		}
+	}
+
+	public String getPluginName() {
+		return pluginName;
+	}
+
+	public void setPluginName(String pluginName) {
+		this.pluginName = pluginName;
 	}
 	
 	

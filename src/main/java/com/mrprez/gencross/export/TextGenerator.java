@@ -34,4 +34,14 @@ public class TextGenerator extends TemplatedFileGenerator {
 		return null;
 	}
 
+	@Override
+	public String getTemplateFileExtension() {
+		return null;
+	}
+
+	@Override
+	public String getTemlpateFileExtensionDescription() {
+		return null;
+	}
+
 }
