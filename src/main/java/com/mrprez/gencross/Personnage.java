@@ -116,7 +116,7 @@ public class Personnage implements PropertyOwner {
 	public boolean phaseFinished(){
 		calculate();
 		if(errors.size()==0){
-			return true;
+			return ! phase.equals(phaseList.get(phaseList.size() - 1));
 		}
 		return false;
 	}
