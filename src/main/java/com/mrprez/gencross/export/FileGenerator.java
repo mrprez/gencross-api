@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Map;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 import com.mrprez.gencross.Personnage;
@@ -13,7 +14,7 @@ public abstract class FileGenerator {
 	
 	
 	private static Map<String, Class<? extends FileGenerator>> buildGeneratorList(){
-		Map<String, Class<? extends FileGenerator>> result = new TreeMap<String, Class<? extends FileGenerator>>();
+		SortedMap<String, Class<? extends FileGenerator>> result = new TreeMap<String, Class<? extends FileGenerator>>();
 		result.put("Fichier avec template texte",TextGenerator.class);
 		result.put("Fichier Excel(.xls)",XlsGenerator.class);
 		result.put("Fichier avec template XML", EncodedXmlGenerator.class);
