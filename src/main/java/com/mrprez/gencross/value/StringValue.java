@@ -17,10 +17,9 @@ public class StringValue extends Value {
 
 	@Override
 	public Value clone() {
-		if(value==null){
-			return new StringValue(null);
-		}
-		return new StringValue(new String(value));
+		StringValue clone = new StringValue(value);
+		clone.setOffset(offset);
+		return clone;
 	}
 
 	@Override
