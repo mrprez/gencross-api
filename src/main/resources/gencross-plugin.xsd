@@ -32,7 +32,7 @@
 					<xs:sequence>
 						<xs:element name="pattern" type="xs:string"/>
 						<xs:element name="phase" minOccurs="0" type="xs:string"/>
-						<xs:element name="arg" maxOccurs="unbounded">
+						<xs:element name="arg" minOccurs="0" maxOccurs="unbounded">
 							<xs:complexType>
 								<xs:simpleContent>
 									<xs:extension base="xs:string">
@@ -54,7 +54,7 @@
 				<xs:complexType>
 					<xs:sequence>
 						<xs:element name="phase" type="xs:string"/>
-						<xs:element name="arg" maxOccurs="unbounded">
+						<xs:element name="arg" minOccurs="0" maxOccurs="unbounded">
 							<xs:complexType>
 								<xs:simpleContent>
 									<xs:extension base="xs:string">

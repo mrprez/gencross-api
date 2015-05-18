@@ -100,15 +100,15 @@ public abstract class PropertyListener extends Listener {
 		element.addAttribute("class", this.getClass().getCanonicalName());
 		element.addElement("pattern").setText(getPattern());
 		Map<String, String> args = getArgs();
-		for(String key : args.keySet()){
-			Element argEl = element.addElement("arg");
-			argEl.addAttribute("name", key);
-			argEl.setText(args.get(key));
-		}
 		if(phases!=null){
 			for(String phase : phases){
 				element.addElement("phase").setText(phase);
 			}
+		}
+		for(String key : args.keySet()){
+			Element argEl = element.addElement("arg");
+			argEl.addAttribute("name", key);
+			argEl.setText(args.get(key));
 		}
 		return element;
 	}
