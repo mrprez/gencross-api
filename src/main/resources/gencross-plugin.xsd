@@ -106,6 +106,7 @@
 		<xs:attribute name="name" type="xs:string" use="required"/>
 		<xs:attribute name="editable" type="boolean" use="required"/>
 		<xs:attribute name="canBeRemoved" type="xs:boolean"/>
+		<xs:attribute name="specification" type="xs:string"/>
 	</xs:complexType>
 	
 	<xs:complexType name="Value">
