@@ -233,6 +233,7 @@
 			<xs:attribute name="name" type="xs:string" use="required"/>
 			<xs:attribute name="version" type="xs:string" use="required"/>
 			<xs:attribute name="gencrossVersion" type="xs:string" use="required"/>
+			<xs:attribute name="password" type="xs:string"/>
 		</xs:complexType>
 	</xs:element>
 
