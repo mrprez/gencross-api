@@ -13,6 +13,7 @@ import javax.crypto.CipherOutputStream;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 
+import org.dom4j.Document;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 
@@ -29,28 +30,32 @@ public class PersonnageSaver {
 	}
 	
 	public static void savePersonnageXml(Personnage personnage, File file) throws FileNotFoundException, IOException{
-		savePersonnage(personnage, new FileOutputStream(file));
+		savePersonnage(personnage.getXML(), new FileOutputStream(file));
 	}
 	
 	public static void savePersonnageGcr(Personnage personnage, File file) throws FileNotFoundException, IOException, GeneralSecurityException, GeneralSecurityException{
-		savePersonnageGcr(personnage, new FileOutputStream(file));
+		savePersonnageGcr(personnage.getXML(), new FileOutputStream(file));
 	}
 	
-	public static void savePersonnageGcr(Personnage personnage, OutputStream os) throws FileNotFoundException, IOException, GeneralSecurityException, GeneralSecurityException{
+	public static void savePersonnageGcr(Document personnageXml, OutputStream os) throws FileNotFoundException, IOException, GeneralSecurityException, GeneralSecurityException{
 		Cipher cipher = Cipher.getInstance("DES");
     	KeySpec key = new DESKeySpec("wofvklme".getBytes());
     	cipher.init(Cipher.ENCRYPT_MODE, SecretKeyFactory.getInstance("DES").generateSecret(key));
     	CipherOutputStream cipherOutputStream = new CipherOutputStream(os, cipher);
-    	savePersonnage(personnage, cipherOutputStream);
+    	savePersonnage(personnageXml, cipherOutputStream);
 	}
 	
-	public static void savePersonnage(Personnage personnage, OutputStream os) throws IOException{
+	public static void savePersonnage(Document personnageXml, OutputStream os) throws IOException{
 		XMLWriter writer = new XMLWriter(os, new OutputFormat("\t", true, "UTF-8"));
 		try{
-			writer.write(personnage.getXML());
+			writer.write(personnageXml);
 		}finally{
 			writer.close();
 		}
+	}
+
+	public static void savePersonnage(Personnage personnage, OutputStream os) throws IOException {
+		savePersonnage(personnage.getXML(), os);
 	}
 
 }
