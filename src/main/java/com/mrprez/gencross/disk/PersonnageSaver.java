@@ -37,6 +37,10 @@ public class PersonnageSaver {
 		savePersonnageGcr(personnage.getXML(), new FileOutputStream(file));
 	}
 	
+	public static void savePersonnageGcr(Personnage personnage, OutputStream os) throws FileNotFoundException, IOException, GeneralSecurityException, GeneralSecurityException{
+		savePersonnageGcr(personnage.getXML(), os);
+	}
+	
 	public static void savePersonnageGcr(Document personnageXml, OutputStream os) throws FileNotFoundException, IOException, GeneralSecurityException, GeneralSecurityException{
 		Cipher cipher = Cipher.getInstance("DES");
     	KeySpec key = new DESKeySpec("wofvklme".getBytes());
