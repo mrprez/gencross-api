@@ -33,6 +33,10 @@ public class PersonnageSaver {
 		savePersonnage(personnage.getXML(), new FileOutputStream(file));
 	}
 	
+	public static void savePersonnageGcr(Personnage personnage, OutputStream os) throws FileNotFoundException, IOException, GeneralSecurityException {
+		savePersonnageGcr(personnage.getXML(), os);
+	}
+	
 	public static void savePersonnageGcr(Personnage personnage, File file) throws FileNotFoundException, IOException, GeneralSecurityException, GeneralSecurityException{
 		savePersonnageGcr(personnage.getXML(), new FileOutputStream(file));
 	}
