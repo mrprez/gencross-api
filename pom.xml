@@ -6,7 +6,7 @@
 	
 	<artifactId>gencross</artifactId>
 	<groupId>com.mrprez.gencross</groupId>
-	<version>1.17-SNAPSHOT</version>
+	<version>1.18-SNAPSHOT</version>
 	
 	<parent>
 		<artifactId>mrprez</artifactId>
