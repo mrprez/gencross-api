@@ -10,18 +10,16 @@ import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.control.customizers.ImportCustomizer;
 
 import com.mrprez.gencross.Property;
-import com.mrprez.gencross.listener.AfterChangeValueListener;
-import com.mrprez.gencross.value.Value;
+import com.mrprez.gencross.listener.AfterDeletePropertyListener;
 
-public class GroovyAfterChangeValueListener extends AfterChangeValueListener {
+public abstract class GroovyAfterDeletePropertyListener extends AfterDeletePropertyListener{
 	
 	private String script;
 
 	@Override
-	public void callAfterChangeValue(Property property, Value oldValue) throws Exception {
+	public void callAfterDeleteProperty(Property property) throws Exception {
 		Binding binding = new Binding();
 		binding.setProperty("property", property);
-		binding.setProperty("oldValue", oldValue);
 		binding.setProperty("personnage", property.getPersonnage());
 		
 		ImportCustomizer importCustomizer = new ImportCustomizer();
@@ -46,13 +44,6 @@ public class GroovyAfterChangeValueListener extends AfterChangeValueListener {
 	public void setArgs(Map<String, String> args) throws Exception {
 		script = args.get("script");
 	}
-
-	public String getScript() {
-		return script;
-	}
-
-	public void setScript(String script) {
-		this.script = script;
-	}
-
+	
+	
 }

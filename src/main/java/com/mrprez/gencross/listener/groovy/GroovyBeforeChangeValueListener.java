@@ -10,18 +10,19 @@ import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.control.customizers.ImportCustomizer;
 
 import com.mrprez.gencross.Property;
-import com.mrprez.gencross.listener.AfterChangeValueListener;
+import com.mrprez.gencross.listener.BeforeChangeValueListener;
 import com.mrprez.gencross.value.Value;
 
-public class GroovyAfterChangeValueListener extends AfterChangeValueListener {
-	
+public class GroovyBeforeChangeValueListener extends BeforeChangeValueListener {
+
 	private String script;
 
+	
 	@Override
-	public void callAfterChangeValue(Property property, Value oldValue) throws Exception {
+	public boolean callBeforeChangeValue(Property property, Value newValue) throws Exception {
 		Binding binding = new Binding();
 		binding.setProperty("property", property);
-		binding.setProperty("oldValue", oldValue);
+		binding.setProperty("newValue", newValue);
 		binding.setProperty("personnage", property.getPersonnage());
 		
 		ImportCustomizer importCustomizer = new ImportCustomizer();
@@ -32,8 +33,9 @@ public class GroovyAfterChangeValueListener extends AfterChangeValueListener {
 		
 		GroovyShell groovyShell = new GroovyShell(binding, compilerConfiguration);
 		
-		groovyShell.evaluate(script);
+		return (Boolean) groovyShell.evaluate(script);
 	}
+	
 
 	@Override
 	public Map<String, String> getArgs() {
@@ -47,12 +49,5 @@ public class GroovyAfterChangeValueListener extends AfterChangeValueListener {
 		script = args.get("script");
 	}
 
-	public String getScript() {
-		return script;
-	}
-
-	public void setScript(String script) {
-		this.script = script;
-	}
 
 }

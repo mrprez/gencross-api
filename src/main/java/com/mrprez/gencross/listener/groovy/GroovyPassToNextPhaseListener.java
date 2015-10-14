@@ -9,20 +9,18 @@ import java.util.Map;
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.control.customizers.ImportCustomizer;
 
-import com.mrprez.gencross.Property;
-import com.mrprez.gencross.listener.AfterChangeValueListener;
-import com.mrprez.gencross.value.Value;
+import com.mrprez.gencross.listener.PassToNextPhaseListener;
 
-public class GroovyAfterChangeValueListener extends AfterChangeValueListener {
+
+public class GroovyPassToNextPhaseListener extends PassToNextPhaseListener {
 	
 	private String script;
-
+	
+	
 	@Override
-	public void callAfterChangeValue(Property property, Value oldValue) throws Exception {
+	public void callPassToNextPhase() throws Exception {
 		Binding binding = new Binding();
-		binding.setProperty("property", property);
-		binding.setProperty("oldValue", oldValue);
-		binding.setProperty("personnage", property.getPersonnage());
+		binding.setProperty("personnage", getPersonnage());
 		
 		ImportCustomizer importCustomizer = new ImportCustomizer();
 		importCustomizer.addImports("com.mrprez.gencross.*");
@@ -34,6 +32,7 @@ public class GroovyAfterChangeValueListener extends AfterChangeValueListener {
 		
 		groovyShell.evaluate(script);
 	}
+	
 
 	@Override
 	public Map<String, String> getArgs() {
@@ -45,14 +44,6 @@ public class GroovyAfterChangeValueListener extends AfterChangeValueListener {
 	@Override
 	public void setArgs(Map<String, String> args) throws Exception {
 		script = args.get("script");
-	}
-
-	public String getScript() {
-		return script;
-	}
-
-	public void setScript(String script) {
-		this.script = script;
 	}
 
 }
