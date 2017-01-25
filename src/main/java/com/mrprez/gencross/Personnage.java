@@ -95,7 +95,7 @@ public class Personnage implements PropertyOwner {
 		}
 	}
 	
-	public boolean isInInterval(Property property, Value value){
+	private boolean isInInterval(Property property, Value value) {
 		if(property == null){
 			return false;
 		}
@@ -181,18 +181,14 @@ public class Personnage implements PropertyOwner {
 	}
 	
 	public Property getProperty(String absoluteName){
-		String[] nameTab = absoluteName.split("[#]");
-		Property property = properties.get(nameTab[0]);
-		for(int i=1; i<nameTab.length; i++){
-			if(property==null){
+		if (absoluteName.contains("#")) {
+			Property property = properties.get(absoluteName.substring(0, absoluteName.indexOf('#')));
+			if (property == null) {
 				return null;
 			}
-			if(property.getSubProperties()==null){
-				return null;
-			}
-			property = property.getSubProperty(nameTab[i]);
+			return property.getProperty(absoluteName.substring(absoluteName.indexOf('#') + 1));
 		}
-		return property;
+		return properties.get(absoluteName);
 	}
 	
 	public int size(){

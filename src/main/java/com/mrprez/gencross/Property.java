@@ -130,6 +130,20 @@ public class Property implements PropertyOwner {
 		return subProperties.get(name);
 	}
 
+	public Property getProperty(String name) {
+		if (subProperties == null) {
+			return null;
+		}
+		if (name.contains("#")) {
+			Property subProperty = getSubProperty(name.substring(0, name.indexOf('#')));
+			if (subProperty == null) {
+				return null;
+			}
+			return subProperty.getProperty(name.substring(name.indexOf('#') + 1));
+		}
+		return getSubProperty(name);
+	}
+
 	public PropertiesList getSubProperties() {
 		return subProperties;
 	}

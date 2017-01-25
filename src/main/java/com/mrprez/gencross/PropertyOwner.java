@@ -8,4 +8,6 @@ public interface PropertyOwner {
 
 	public abstract Iterator<Property> iterator();
 	public abstract HistoryFactory getHistoryFactory();
+
+	public abstract Property getProperty(String currentName);
 }
