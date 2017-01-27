@@ -8,8 +8,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.List;
 
-import junit.framework.Assert;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,10 +18,12 @@ import com.mrprez.gencross.disk.PersonnageSaver;
 import com.mrprez.gencross.disk.PluginDescriptor;
 import com.mrprez.gencross.history.HistoryItem;
 
+import junit.framework.Assert;
+
 public abstract class HistoryTest {
 	private String fileName;
 	private Personnage personnageRef;
-	private Personnage personnage;
+	protected Personnage personnage;
 	private List<HistoryItem> history;
 	private PersonnageFactory personnageFactory;
 	
@@ -75,7 +75,7 @@ public abstract class HistoryTest {
 		
 	}
 	
-	private void reachPhase(String phase) throws Exception{
+	protected void reachPhase(String phase) throws Exception {
 		while(! personnage.getPhase().equals(phase)){
 			String oldPhase = personnage.getPhase();
 			if(!personnage.phaseFinished()){
@@ -89,7 +89,7 @@ public abstract class HistoryTest {
 		}
 	}
 	
-	private void creation(HistoryItem historyItem) throws Exception{
+	protected void creation(HistoryItem historyItem) throws Exception {
 		String motherPropertyAbsoluteName = historyItem.getAbsoluteName().substring(0, historyItem.getAbsoluteName().lastIndexOf("#"));
 		Property motherProperty = personnage.getProperty(motherPropertyAbsoluteName);
 		String propertyName = historyItem.getAbsoluteName().substring(historyItem.getAbsoluteName().lastIndexOf("#")+1);
@@ -122,7 +122,7 @@ public abstract class HistoryTest {
 		System.out.println("Add    property "+historyItem.getAbsoluteName()+" : "+historyItem.getNewValue()+" ("+newHistoryItem.getCost()+" "+newHistoryItem.getPointPool()+")");
 	}
 	
-	private void update(HistoryItem historyItem) throws Exception{
+	protected void update(HistoryItem historyItem) throws Exception {
 		Property property = personnage.getProperty(historyItem.getAbsoluteName());
 		assertEquals("Property "+property.getAbsoluteName()+" has the wrong value",historyItem.getOldValue(), property.getValue());
 		boolean success = personnage.setNewValue(property, historyItem.getNewValue().clone());
@@ -131,7 +131,7 @@ public abstract class HistoryTest {
 		System.out.println("Update property "+historyItem.getAbsoluteName()+" : "+historyItem.getNewValue()+" ("+newHistoryItem.getCost()+" "+newHistoryItem.getPointPool()+")");
 	}
 	
-	private void delete(HistoryItem historyItem) throws Exception{
+	protected void delete(HistoryItem historyItem) throws Exception {
 		Property property = personnage.getProperty(historyItem.getAbsoluteName());
 		assertEquals("Property "+property.getAbsoluteName()+" has the wrong value",historyItem.getOldValue(), property.getValue());
 		boolean success = personnage.removePropertyFromMotherProperty(property);
