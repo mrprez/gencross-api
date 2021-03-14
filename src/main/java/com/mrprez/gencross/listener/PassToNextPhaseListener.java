@@ -32,7 +32,7 @@ public abstract class PassToNextPhaseListener extends Listener {
 		String className = element.attributeValue("class");
 		if(className!=null){
 			Class<? extends PassToNextPhaseListener> clazz = (Class<? extends PassToNextPhaseListener>) Listener.class.getClassLoader().loadClass(className);
-			listener = clazz.newInstance();
+			listener = clazz.getConstructor().newInstance();
 			Iterator<?> it = element.elementIterator("arg");
 			while(it.hasNext()){
 				Element argEl = (Element) it.next();
@@ -57,7 +57,7 @@ public abstract class PassToNextPhaseListener extends Listener {
 	public PassToNextPhaseListener clone() throws CloneNotSupportedException {
 		PassToNextPhaseListener clone;
 		try {
-			clone = this.getClass().newInstance();
+			clone = this.getClass().getConstructor().newInstance();
 			clone.setPersonnage(this.getPersonnage());
 			clone.setPhase(new String(phase));
 			clone.setArgs(this.getArgs());

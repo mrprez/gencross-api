@@ -1,5 +1,7 @@
 package com.mrprez.gencross.renderer;
 
+import java.lang.reflect.InvocationTargetException;
+
 import com.mrprez.gencross.Property;
 import com.mrprez.gencross.value.Value;
 
@@ -28,10 +30,9 @@ public class Renderer {
 	
 	public Renderer copy(){
 		try {
-			return getClass().newInstance();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
+			return getClass().getConstructor().newInstance();
+		} catch (IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+				| SecurityException | InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
 		return null;

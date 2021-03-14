@@ -24,8 +24,8 @@ public class DoubleValue extends Value {
 
 	@Override
 	public Value clone() {
-		DoubleValue clone = new DoubleValue(new Double(value.doubleValue()));
-		clone.setOffset(new Double(offset));
+		DoubleValue clone = new DoubleValue(Double.valueOf(value.doubleValue()));
+		clone.setOffset(Double.valueOf(offset));
 		return clone;
 	}
 
@@ -44,7 +44,7 @@ public class DoubleValue extends Value {
 
 	@Override
 	public void setValue(String value) {
-		this.value = new Double(value);
+		this.value = Double.valueOf(value);
 	}
 
 	@Override

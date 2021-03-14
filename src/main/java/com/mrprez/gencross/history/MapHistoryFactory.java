@@ -55,13 +55,13 @@ public class MapHistoryFactory extends HistoryFactory {
 		if(argsMap.get("class").equals(IntValue.class.getName())){
 			for(String key : argsMap.keySet()){
 				if(!key.equals("class")){
-					map.put(new IntValue(new Integer(key)), Integer.parseInt(argsMap.get(key)));
+					map.put(new IntValue(Integer.valueOf(key)), Integer.parseInt(argsMap.get(key)));
 				}
 			}
 		}else if(argsMap.get("class").equals(DoubleValue.class.getName())){
 			for(String key : argsMap.keySet()){
 				if(!key.equals("class")){
-					map.put(new DoubleValue(new Double(key)), Integer.parseInt(argsMap.get(key)));
+					map.put(new DoubleValue(Double.valueOf(key)), Integer.parseInt(argsMap.get(key)));
 				}
 			}
 		}else{

@@ -276,7 +276,7 @@ public class PropertiesList implements Collection<Property> {
 	public PropertiesList clone(){
 		PropertiesList clone = new PropertiesList(fixe,open,owner);
 		if(canRemoveElement!=null){
-			clone.canRemoveElement = new Boolean(canRemoveElement);
+			clone.canRemoveElement = Boolean.valueOf(canRemoveElement);
 		}
 		if(defaultProperty!=null){
 			clone.defaultProperty = defaultProperty.clone();

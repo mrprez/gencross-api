@@ -32,7 +32,7 @@ public abstract class PropertyListener extends Listener {
 		String className = element.attributeValue("class");
 		if(className!=null){
 			Class<? extends PropertyListener> clazz = (Class<? extends PropertyListener>) Listener.class.getClassLoader().loadClass(className);
-			listener = clazz.newInstance();
+			listener = clazz.getConstructor().newInstance();
 			Iterator<?> it = element.elementIterator("arg");
 			while(it.hasNext()){
 				Element argEl = (Element) it.next();
@@ -74,7 +74,7 @@ public abstract class PropertyListener extends Listener {
 	public PropertyListener clone() throws CloneNotSupportedException {
 		PropertyListener clone;
 		try {
-			clone = this.getClass().newInstance();
+			clone = this.getClass().getConstructor().newInstance();
 			clone.setPersonnage(this.getPersonnage());
 			clone.setPattern(pattern);
 			clone.setArgs(this.getArgs());

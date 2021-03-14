@@ -525,7 +525,7 @@ public class Personnage implements PropertyOwner {
 	
 	public void setXMLWithoutListener(Element root) throws SecurityException, NoSuchMethodException, InstantiationException, IllegalAccessException, ClassNotFoundException, MalformedFormulaException, IllegalArgumentException, InvocationTargetException{
 		phase = root.element("phase").attributeValue("name");
-		password = root.attribute("password")!=null?root.attributeValue("password"):null;
+		password = root.attribute("password")!=null ? root.attributeValue("password") : null;
 		Iterator<?> it = root.element("phaseList").elementIterator("phase");
 		phaseList.clear();
 		while(it.hasNext()){
@@ -605,7 +605,7 @@ public class Personnage implements PropertyOwner {
 	
 	public Personnage clone() throws CloneNotSupportedException{
 		try {
-			Personnage clone = this.getClass().newInstance();
+			Personnage clone = this.getClass().getConstructor().newInstance();
 			clone.pluginDescriptor = pluginDescriptor;
 			for(Property property : properties.values()){
 				clone.addProperty(property.clone());
@@ -652,11 +652,8 @@ public class Personnage implements PropertyOwner {
 			clone.formulaManager = formulaManager.clone();
 			
 			return clone;
-		} catch (InstantiationException e) {
-			CloneNotSupportedException newEx = new CloneNotSupportedException();
-			newEx.initCause(e);
-			throw newEx;
-		} catch (IllegalAccessException e) {
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException | InstantiationException e) {
 			CloneNotSupportedException newEx = new CloneNotSupportedException();
 			newEx.initCause(e);
 			throw newEx;
@@ -671,9 +668,13 @@ public class Personnage implements PropertyOwner {
 	 * @throws ClassNotFoundException 
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
+	 * @throws SecurityException 
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
 	 */
-	public Renderer getRenderer(String className) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		return (Renderer) getClass().getClassLoader().loadClass(className).newInstance();
+	public Renderer getRenderer(String className) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		return (Renderer) getClass().getClassLoader().loadClass(className).getConstructor().newInstance();
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -77,7 +77,7 @@ public class PersonnageFactory {
 		Element root = document.getRootElement();
 		
 		// Virgin personnage
-		Personnage personnage = (Personnage) classLoader.loadClass(pluginDescriptor.getClassName()).newInstance();
+		Personnage personnage = (Personnage) classLoader.loadClass(pluginDescriptor.getClassName()).getConstructor().newInstance();
 		personnage.setPluginDescriptor(pluginDescriptor);
 		
 		// Appendix
@@ -134,7 +134,7 @@ public class PersonnageFactory {
 		}
 		
 		// Virgin personnage
-		Personnage personnage = (Personnage) classLoader.loadClass(pluginDescriptor.getClassName()).newInstance();
+		Personnage personnage = (Personnage) classLoader.loadClass(pluginDescriptor.getClassName()).getConstructor().newInstance();
 		personnage.setPluginDescriptor(pluginDescriptor);
 		
 		// Appendix
@@ -205,7 +205,7 @@ public class PersonnageFactory {
 			if(migratorClassName==null){
 				throw new PersonnageVersionException("No migrator for plugin "+targetPluginDescriptor.getName()+" v"+originVersion);
 			}
-			Migrator migrator = (Migrator) classLoader.loadClass(migratorClassName).newInstance();
+			Migrator migrator = (Migrator) classLoader.loadClass(migratorClassName).getConstructor().newInstance();
 			migrationPersonnage = migrator.migrate(migrationPersonnage);
 			if(migrationPersonnage.getPluginDescriptor().getVersion().equals(originVersion)){
 				throw new PersonnageVersionException(migratorClassName + " didn't work. Version is still "+originVersion);

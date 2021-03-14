@@ -26,9 +26,9 @@ public class IntValue extends Value {
 		if(value==null){
 			clone = new IntValue(null);
 		}else{
-			clone = new IntValue(new Integer(value));
+			clone = new IntValue(Integer.valueOf(value));
 		}
-		clone.setOffset(new Integer(offset));
+		clone.setOffset(Integer.valueOf(offset));
 		return clone;
 	}
 
@@ -36,7 +36,7 @@ public class IntValue extends Value {
 
 	@Override
 	public void setValue(String value) {
-		this.value = new Integer(value);
+		this.value = Integer.valueOf(value);
 	}
 	public Integer getValue() {
 		return value;
