@@ -16,7 +16,6 @@ public abstract class FileGenerator {
 	private static Map<String, Class<? extends FileGenerator>> buildGeneratorList(){
 		SortedMap<String, Class<? extends FileGenerator>> result = new TreeMap<String, Class<? extends FileGenerator>>();
 		result.put("Fichier avec template texte",TextGenerator.class);
-		result.put("Fichier Excel(.xls)",XlsGenerator.class);
 		result.put("Fichier avec template XML", EncodedXmlGenerator.class);
 		result.put("Fichier texte",SimpleTxtGenerator.class);
 		result.put("Fichier XML", XmlGenerator.class);
