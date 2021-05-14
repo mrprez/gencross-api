@@ -1,13 +1,11 @@
 package com.mrprez.gencross;
 
-import java.util.Iterator;
-
 import com.mrprez.gencross.history.HistoryFactory;
 
-public interface PropertyOwner {
+public interface PropertyOwner extends Iterable<Property> {
 
-	public abstract Iterator<Property> iterator();
-	public abstract HistoryFactory getHistoryFactory();
+	public HistoryFactory getHistoryFactory();
 
-	public abstract Property getProperty(String currentName);
+	public Property getProperty(String currentName);
+	
 }

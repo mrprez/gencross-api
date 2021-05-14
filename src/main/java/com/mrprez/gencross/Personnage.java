@@ -446,6 +446,7 @@ public class Personnage implements PropertyOwner {
 		setNewValue(getProperty(absoluteName), newValue);
 	}
 	
+	@Override
 	public Iterator<Property> iterator(){
 		return properties.values().iterator();
 	}
