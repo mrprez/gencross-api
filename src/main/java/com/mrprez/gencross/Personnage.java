@@ -70,16 +70,19 @@ public class Personnage implements PropertyOwner {
 		return null;
 	}
 	
-	public void passToNextPhase() throws Exception{
+	public boolean passToNextPhase() throws Exception{
 		if(!phaseFinished()){
-			return;
+			return false;
 		}
 		if(this.nextPhase()!=null){
 			callPassToNextPhaseListener();
 			phase = this.nextPhase();
 			calculate();
+			return true;
 		}
+		return false;
 	}
+	
 	public void calculate(){
 		errors.clear();
 		
@@ -430,20 +433,20 @@ public class Personnage implements PropertyOwner {
 		return passToNextPhaseListeners;
 	}
 	
-	public void setNewValue(Property property, String newValue) throws Exception{
-		setNewValue(property, new StringValue(newValue));
+	public boolean setNewValue(Property property, String newValue) throws Exception{
+		return setNewValue(property, new StringValue(newValue));
 	}
-	public void setNewValue(Property property, int newValue) throws Exception{
-		setNewValue(property, new IntValue(newValue));
+	public boolean setNewValue(Property property, int newValue) throws Exception{
+		return setNewValue(property, new IntValue(newValue));
 	}
-	public void setNewValue(String absoluteName, Value newValue) throws Exception{
-		setNewValue(getProperty(absoluteName), newValue);
+	public boolean setNewValue(String absoluteName, Value newValue) throws Exception{
+		return setNewValue(getProperty(absoluteName), newValue);
 	}
-	public void setNewValue(String absoluteName, String newValue) throws Exception{
-		setNewValue(getProperty(absoluteName), newValue);
+	public boolean setNewValue(String absoluteName, String newValue) throws Exception{
+		return setNewValue(getProperty(absoluteName), newValue);
 	}
-	public void setNewValue(String absoluteName, int newValue) throws Exception{
-		setNewValue(getProperty(absoluteName), newValue);
+	public boolean setNewValue(String absoluteName, int newValue) throws Exception{
+		return setNewValue(getProperty(absoluteName), newValue);
 	}
 	
 	@Override
